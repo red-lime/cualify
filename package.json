@@ -4,6 +4,9 @@
   "description": "The Minimal House Remix Stack to setup Remix with minimal typsescript, tailwind, linting, and formatting. Worry about storage, testing, or deployment later.",
   "license": "MIT",
   "sideEffects": false,
+  "prisma": {
+    "seed": "node --require esbuild-register prisma/seed.ts"
+  },
   "scripts": {
     "build": "run-s build:*",
     "build:css": "npm run generate:css -- --minify",
@@ -16,6 +19,7 @@
     "start": "remix-serve build"
   },
   "dependencies": {
+    "@headlessui/react": "^1.6.6",
     "@prisma/client": "^4.1.1",
     "@remix-run/node": "^1.6.7",
     "@remix-run/react": "^1.6.7",

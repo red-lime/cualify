@@ -17,4 +17,12 @@ model Form {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  leads     Lead[]
+}
+
+model Lead {
+  id        String @id @default(cuid())
+  form      Form   @relation(fields: [formId], references: [id])
+  formId    String
+  formValue Int?
 }

@@ -6,12 +6,12 @@ const db = new PrismaClient();
 const schema = [
   {
     category: "Business",
-    question:
+    label:
       "Do you currently use any softwares to manage your business? (e.g. a CRM, Calendly, etc.)",
   },
   {
     category: "Client Success",
-    question: "How strong do you feel about your current client success path?",
+    label: "How strong do you feel about your current client success path?",
   },
 ];
 
@@ -23,7 +23,13 @@ async function main() {
     },
   });
 
-  console.log(forms);
+  const lead = await db.lead.create({
+    data: {
+      form: { connect: { id: forms.id } },
+    },
+  });
+
+  console.log(forms, lead);
 }
 
 main()
