@@ -1,17 +1,29 @@
-import { PrismaClient } from "@prisma/client";
+import { Prisma, PrismaClient } from "@prisma/client";
 const db = new PrismaClient();
 
-// shout-out to https://icanhazdadjoke.com/
-
-const schema = [
+const formSchema = [
   {
-    category: "Business",
-    label:
-      "Do you currently use any softwares to manage your business? (e.g. a CRM, Calendly, etc.)",
-  },
-  {
-    category: "Client Success",
-    label: "How strong do you feel about your current client success path?",
+    id: "340848b4-3961-481b-8b39-f2687b1fc842",
+    published: "false",
+    blocks: [
+      {
+        id: "SZ2s1sb8J7",
+        data: {
+          label:
+            "Do you currently use any softwares to manage your business? (e.g. a CRM, Calendly, etc.)",
+          placeholder: "Enter your asnwer here.",
+        },
+        type: "text",
+      },
+      {
+        id: "ikQxlZ9sZB",
+        data: {
+          label:
+            "How strong do you feel about your current client success path?",
+        },
+        type: "range",
+      },
+    ],
   },
 ];
 
@@ -19,7 +31,7 @@ async function main() {
   const forms = await db.form.create({
     data: {
       name: "Demo Call Form",
-      schema: schema,
+      schema: formSchema,
     },
   });
 
@@ -28,13 +40,10 @@ async function main() {
       form: { connect: { id: forms.id } },
     },
   });
-
-  console.log(forms, lead);
 }
 
 main()
   .catch((e: Error) => {
-    console.log(e);
     process.exit(1);
   })
   .finally(async () => {
